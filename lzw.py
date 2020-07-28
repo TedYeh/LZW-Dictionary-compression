@@ -2,7 +2,7 @@ import os
 import struct
 import sys
 
-# the best compression ratio is 2.67XX 
+# the best entropy is 2.67XX 
 # taking the input file and the number of bits from command line
 # defining the maximum table size
 # opening the input file
@@ -11,13 +11,13 @@ import sys
 class LZW:
     def __init__(self,filename):
         self.filename = filename
-        self.f = open(self.filename+".txt",encoding='UTF-8')
+        self.f = open(self.filename,encoding='UTF-8')
         self.d = list(set(self.f.read())) 
   
     def compress(self):
         n = 16              
         maximum_table_size = pow(2,int(n))      
-        file = open(self.filename+".txt",encoding='UTF-8')   
+        file = open(self.filename,encoding='UTF-8')   
         data = file.read()             
         dic = list(set(data))   
         # Building and initializing the dictionary.
@@ -113,5 +113,5 @@ if __name__ == "__main__":
         print("the decoding is correct！")
     print("before: {0:.3f} KB".format(com.get_file_size(".txt")/1024))
     print("after: {0:.3f} KB".format(com.get_file_size("_lzw.bin")/1024))
-    print("the compress ratio is {}%".format(com.get_ratio()))
+    print("the entropy is {0:.3f}".format(com.get_ratio()))
     print("the compress percentage is {0:.2f}%".format(com.get_percentage()*100))
